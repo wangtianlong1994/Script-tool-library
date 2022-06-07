@@ -1,0 +1,152 @@
+在windows系统下，使用pytorch训练yolo模型，并将其转换成onnx--->engine引擎，并在c++下进行模型解析与推理
+
+cuda 11.4.4 官网
+cudnn 8.2.4.15 官网
+TensorRT 8.2.4.2 官网
+PyTorch 1.11 conda
+python=3.8 conda
+opencv-python pip
+v5相关环境 pip
+onnx pip （v5和trt都需要）
+opencv 4.5.5 官网
+vs 15 官网
+cmake 官网
+
+1.安装Anaconda
+	双击exe安装包直接安装
+	添加环境变量
+	C:\Users\QC\Anaconda3
+	C:\Users\QC\Anaconda3\Scripts
+	创建python环境	
+
+	修改清华源
+	conda config --set show_channel_urls yes
+	用户目录下 得到.condarc文件
+	打开添加
+channels:
+  - defaults
+show_channel_urls: true
+default_channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
+custom_channels:
+  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  pytorch-lts: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+
+2.安装cuda与cudnn
+	https://blog.csdn.net/qing666888/article/details/43344107
+
+3.安装pytorch 
+	必须使用canda下载，如果使用Pip下载，会导致 import torch 与import tensorrt 冲突报错
+	进入虚拟环境中
+	conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+
+4.安装pycharm
+	执行exe安装文件
+报错解决：
+. : File C:\Users\QC\Documents\WindowsPowerShell\profile.ps1 cannot be loaded because running scripts is disabled on this system. For more information, see about_Execution_Policies at h ttps:/go.microsoft.com/fwlink/?LinkID=135170.
+	#以管理员身份运行PowerShell
+	#执行：get-ExecutionPolicy，回复Restricted，表示状态是禁止的
+	#执行：set-ExecutionPolicy RemoteSigned即可
+	#注意：一定要以管理员的身份运行PowerShell，不是cmd窗口！
+
+	Settings --> Tools --> Terminal --> Shell Path，将powershell修改为cmd.exe
+
+5.更改pip源
+
+6.安装V5相关环境
+	进入虚拟环境中
+	先安装opencv-python=4.1.2.30
+	再执行pip install -r requirements.txt
+	设置增加项目所在位置盘的虚拟内存
+	训练模型测试
+
+7.安装tensorrt
+	官网下载vs2019
+	https://my.visualstudio.com/Downloads?q=Visual%20Studio%202019  下载地址
+	https://cloud.tencent.com/developer/article/1668511 
+	解压tensorrt 压缩包
+	https://blog.csdn.net/weixin_43917589/article/details/122578198
+	
+	安装python api
+	进入 D:\TensorRT-8.2.4.2\python文件夹下
+	打开cmd 进入虚拟环境 执行pip install 对应版本whl文件 即可
+	
+8.安装opencv
+	官网安装
+	https://opencv.org/releases/
+	教程
+	https://blog.csdn.net/phinoo/article/details/112134866?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.pc_relevant_default&utm_relevant_index=5
+
+9.安装cmake
+	官网安装
+	安装教程
+	http://www.360doc.com/content/22/0113/11/78426080_1013072473.shtml
+
+10.编译 yolov5-rt-stack-main项目进行engine模型加速
+	按照步骤进行编译
+	cd D:\yolov5-rt-stack-main\deployment\tensorrt
+	mkdir -p build && cd build
+
+	然后将该路径下的四个文件 
+	C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\extras\visual_studio_integration\MSBuildExtensions
+	复制到
+	C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\BuildCustomizations
+	否则cmake会报错 找不到cuda！！
+
+	cmake -G "Visual Studio 16 2019" -DTENSORRT_DIR="D:/TensorRT-8.2.4.2" -DOpenCV_DIR="D:/opencv4.5.4/opencv/build" -DCUDA_TOOLKIT_ROOT_DIR="C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.4" ..
+
+	cmake -build
+	
+	复制模型以及相关库文件、类文件、图片到debug文件下
+
+	执行exe文件 并输入相关命令
+
+	yolort_trt.exe --fp16 -m "last.engine" -i "20220408 18_09_12_384.bmp" -c "weilong.yaml"
+
+	--------------------------------
+
+	
+
+11.不同系列显卡需要分别转换对应引擎模型
+
+12.cmake 编译失败情况下，使用vs15 直接新建项目，配置cuda、tensorrt、opencv环境
+	vs15新建c++项目
+	创建main.cpp文件
+	将功能代码复制到main.cpp文件内
+	打开属性管理器，右键release or debug（64） 属性
+	c/c++-常规-附加包含目录：
+	D:\TensorRT-8.2.4.2\include
+	D:\opencv4.5.4\opencv\build\include
+	C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\include
+	
+	链接器-常规-附加库目录：
+	C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.4/lib/x64
+	C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.4/lib/x64/$(Configuration)
+	D:/TensorRT-8.2.4.2/lib
+	D:/TensorRT-8.2.4.2/lib/$(Configuration)
+	
+	链接器-输入-附加依赖项：
+D:\opencv4.5.4\opencv\build\x64\vc15\lib\opencv_world455.lib
+nvinfer.lib
+cudart.lib
+nvonnxparser.lib
+nvinfer_plugin.lib
+kernel32.lib
+user32.lib
+gdi32.lib
+winspool.lib
+shell32.lib
+ole32.lib
+oleaut32.lib
+uuid.lib
+comdlg32.lib
+advapi32.lib
+
+	运行即可
