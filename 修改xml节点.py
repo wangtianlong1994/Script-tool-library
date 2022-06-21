@@ -45,18 +45,18 @@ import os
 from xml.dom.minidom import parse
 
 def readXML():
-    for i in os.listdir("./Annotations"):
-        domTree = parse("./Annotations/"+i)
-        s = "./Annotations/"+i
+    for i in os.listdir("./xml"):
+        domTree = parse("./xml/"+i)
+        s = "./xml/"+i
         # 文档根元素
         rootNode = domTree.documentElement
         # print(rootNode.nodeName)
         customers = rootNode.getElementsByTagName("name")
 
         for i in range(len(customers)):
-            if "Zhong" not in str(customers[i].firstChild.data):
+            if "wuya" in str(customers[i].firstChild.data):
                 print("改变前："+customers[i].firstChild.data)
-                customers[i].firstChild.data = "Zhong"
+                customers[i].firstChild.data = "wuhan"
                 print("改变后："+customers[i].firstChild.data)
         #
         with open(s, 'w') as fh:
