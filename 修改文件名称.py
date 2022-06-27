@@ -1,11 +1,11 @@
 # 修改图片名称
 import os
 lists = []
-paths = "./image/"
-image_list = os.listdir("./image")
-a = 689
+paths = "./3/"
+image_list = os.listdir("./3")
+a = 1282
 for i in range(len(image_list)):
-    os.rename(paths+image_list[i],(paths+str(a)+".bmp"))
+    os.rename(paths+image_list[i],(paths+str(a)+".jpg"))
     a += 1
     # os.rename(image_path,iamge_name)
 
