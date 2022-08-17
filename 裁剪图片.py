@@ -3,8 +3,8 @@
 import cv2
 import os
 
-img_paths = "./image/"
-dir_list = os.listdir("./image")
+img_paths = "D:\\2035_2/"
+dir_list = os.listdir("D:\\2035_2")
 for i in dir_list:
     im = cv2.imread(img_paths+i)
     print(i)
@@ -13,9 +13,13 @@ for i in dir_list:
     # 负极截图尺寸
     # im = im[170:930,420:1180]
     # 天海正向
-    im = im[340:980,570:1210]
+    # im = im[340:980,570:1210]
     # 天海反向
     # im = im[340:980,430:1070]
 
-    save_path = f"./scr_img/{i}"
+    # 纽扣电池6工位 发霉
+    im = im[230:1360, 230:1360]
+
+    save_path = f"./scr_img/{i.split('.')[0]}.png"
     cv2.imwrite(save_path, im)
+

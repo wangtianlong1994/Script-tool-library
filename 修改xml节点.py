@@ -41,28 +41,29 @@
 
 #
 #修改xml节点名称
-import os
-from xml.dom.minidom import parse
-
-def readXML():
-    for i in os.listdir("./xml"):
-        domTree = parse("./xml/"+i)
-        s = "./xml/"+i
-        # 文档根元素
-        rootNode = domTree.documentElement
-        # print(rootNode.nodeName)
-        customers = rootNode.getElementsByTagName("name")
-
-        for i in range(len(customers)):
-            if "wuya" in str(customers[i].firstChild.data):
-                print("改变前："+customers[i].firstChild.data)
-                customers[i].firstChild.data = "wuhan"
-                print("改变后："+customers[i].firstChild.data)
-        #
-        with open(s, 'w') as fh:
-            rootNode.writexml(fh)
-if __name__ == '__main__':
-    readXML()
+# import os
+# from xml.dom.minidom import parse
+#
+# def readXML():
+#     for i in os.listdir("./5-2_xml"):
+#         domTree = parse("./5-2_xml/"+i)
+#         s = "./5-2_xml/"+i
+#         # 文档根元素
+#         rootNode = domTree.documentElement
+#         # print(rootNode.nodeName)
+#         customers = rootNode.getElementsByTagName("name")
+#
+#         for i in range(len(customers)):
+#             if "yewei" not in str(customers[i].firstChild.data) and "blue" not in str(customers[i].firstChild.data) :
+#                 print("改变前："+customers[i].firstChild.data)
+#                 customers[i].firstChild.data = "ng"
+#                 print("改变后："+customers[i].firstChild.data)
+#         #
+#                 print(s)
+#         with open(s, 'w') as fh:
+#             rootNode.writexml(fh)
+# if __name__ == '__main__':
+#     readXML()
 
 
 # #修改xml节点数据
@@ -82,62 +83,48 @@ if __name__ == '__main__':
 # if __name__ == '__main__':
 #     readXML()
 
-
+#
 # #修改xml节点名称
 # import os
 # from xml.dom.minidom import parse
 #
 # def readXML():
-#     for i in os.listdir("Annotations"):
-#         domTree = parse("Annotations/"+i)
-#         s = "Annotations/"+i
+#     for i in os.listdir("4_xml"):
+#         domTree = parse("4_xml/"+i)
+#         s = "4_xml/"+i
 #         # 文档根元素
 #         rootNode = domTree.documentElement
 #         # print(rootNode.nodeName)
 #         customers = rootNode.getElementsByTagName("name")
 #
 #         for i in range(len(customers)):
-#             if "0" in str(customers[i].firstChild.data):
+#             if "qingzhou" in str(customers[i].firstChild.data):
 #                 print(s)
 #                 print("改变前："+customers[i].firstChild.data)
-#                 customers[i].firstChild.data = "AoXian"
+#                 customers[i].firstChild.data = "qingya"
 #                 print("改变后："+customers[i].firstChild.data)
-#             elif "1" in str(customers[i].firstChild.data):
-#                 print(s)
-#                 print("改变前："+customers[i].firstChild.data)
-#                 customers[i].firstChild.data = "HeiBan"
-#                 print("改变后："+customers[i].firstChild.data)
-#             elif "2" in str(customers[i].firstChild.data):
-#                 print(s)
-#                 print("改变前："+customers[i].firstChild.data)
-#                 customers[i].firstChild.data = "GanTiao"
-#                 print("改变后："+customers[i].firstChild.data)
-#             elif "3" in str(customers[i].firstChild.data):
-#                 print(s)
-#                 print("改变前："+customers[i].firstChild.data)
-#                 customers[i].firstChild.data = "LieKou"
-#                 print("改变后："+customers[i].firstChild.data)
-#             elif "4" in str(customers[i].firstChild.data):
-#                 print(s)
-#                 print("改变前："+customers[i].firstChild.data)
-#                 customers[i].firstChild.data = "HaoZao"
-#                 print("改变后："+customers[i].firstChild.data)
-#             elif "5" in str(customers[i].firstChild.data):
-#                 print(s)
-#                 print("改变前："+customers[i].firstChild.data)
-#                 customers[i].firstChild.data = "NiaoZhuo"
-#                 print("改变后："+customers[i].firstChild.data)
-#             elif "6" in str(customers[i].firstChild.data):
-#                 print(s)
-#                 print("改变前："+customers[i].firstChild.data)
-#                 customers[i].firstChild.data = "LanZao"
-#                 print("改变后："+customers[i].firstChild.data)
-#             elif "7" in str(customers[i].firstChild.data):
-#                 print(s)
-#                 print("改变前："+customers[i].firstChild.data)
-#                 customers[i].firstChild.data = "ShuZao"
-#                 print("改变后："+customers[i].firstChild.data)
+#
 #         with open(s, 'w') as fh:
 #             rootNode.writexml(fh)
 # if __name__ == '__main__':
 #     readXML()
+
+#
+#删除空白xml文件
+import os
+from xml.dom.minidom import parse
+
+def readXML():
+    for i in os.listdir("4_xml"):
+        domTree = parse("4_xml/"+i)
+        s = "4_xml/"+i
+        # 文档根元素
+        rootNode = domTree.documentElement
+        # print(rootNode.nodeName)
+        customers = rootNode.getElementsByTagName("object")
+        if customers:
+            pass
+        else:
+            os.remove(s)
+if __name__ == '__main__':
+    readXML()
