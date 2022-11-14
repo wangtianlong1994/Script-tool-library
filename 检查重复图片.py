@@ -29,6 +29,6 @@ def get_file(init_files):
 
 if __name__ == "__main__":
     # 文件夹地址
-    file_dir = "./image"
+    file_dir = "./1_1-4"
     get_file(file_dir)
 

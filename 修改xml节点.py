@@ -71,60 +71,62 @@
 # import xml.etree.ElementTree as ET
 #
 # def readXML():
-#     for i in os.listdir("xmls"):
-#         s = "xmls/"+i
+#     for i in os.listdir("Annotations"):
+#         s = "Annotations/"+i
 #         tree = ET.parse(s)
 #         root = tree.getroot()
 #         filename = root.find('path')
-#         file = f'{filename.text.replace("2工位训练用","纽扣电池处理后数据")}'
-#         filename.text = file
+#         # file = f'{filename.text.replace("2工位训练用","纽扣电池处理后数据")}'
+#         filename.text = i
 #         print(filename.text)
 #         tree.write(s,"UTF-8")
 # if __name__ == '__main__':
 #     readXML()
 
 #
-# #修改xml节点名称
-# import os
-# from xml.dom.minidom import parse
-#
-# def readXML():
-#     for i in os.listdir("4_xml"):
-#         domTree = parse("4_xml/"+i)
-#         s = "4_xml/"+i
-#         # 文档根元素
-#         rootNode = domTree.documentElement
-#         # print(rootNode.nodeName)
-#         customers = rootNode.getElementsByTagName("name")
-#
-#         for i in range(len(customers)):
-#             if "qingzhou" in str(customers[i].firstChild.data):
-#                 print(s)
-#                 print("改变前："+customers[i].firstChild.data)
-#                 customers[i].firstChild.data = "qingya"
-#                 print("改变后："+customers[i].firstChild.data)
-#
-#         with open(s, 'w') as fh:
-#             rootNode.writexml(fh)
-# if __name__ == '__main__':
-#     readXML()
-
-#
-#删除空白xml文件
+#修改xml节点名称
 import os
 from xml.dom.minidom import parse
 
 def readXML():
-    for i in os.listdir("4_xml"):
-        domTree = parse("4_xml/"+i)
-        s = "4_xml/"+i
+    for i in os.listdir("5-4_xml"):
+        domTree = parse("5-4_xml/"+i)
+        s = "5-4_xml/"+i
         # 文档根元素
         rootNode = domTree.documentElement
         # print(rootNode.nodeName)
-        customers = rootNode.getElementsByTagName("object")
-        if customers:
-            pass
-        else:
-            os.remove(s)
+        customers = rootNode.getElementsByTagName("name")
+
+        for i in range(len(customers)):
+            # print(str(customers[i].firstChild.data))
+            if "yewei" not in str(customers[i].firstChild.data) and "yellow" not in str(customers[i].firstChild.data):
+                # print(s)
+                # print(str(customers[i].firstChild.data))
+                print("改变前："+customers[i].firstChild.data)
+                customers[i].firstChild.data = "ng"
+                print("改变后："+customers[i].firstChild.data)
+
+        with open(s, 'w') as fh:
+            rootNode.writexml(fh)
 if __name__ == '__main__':
     readXML()
+
+#
+# #删除空白xml文件
+# import os
+# from xml.dom.minidom import parse
+
+# def readXML():
+#     for i in os.listdir("Annotations"):
+#         domTree = parse("Annotations/"+i)
+#         s = "Annotations/"+i
+#         # 文档根元素
+#         rootNode = domTree.documentElement
+#         # print(rootNode.nodeName)
+#         customers = rootNode.getElementsByTagName("object")
+#         if customers:
+#             pass
+#         else:
+#             os.remove(s)
+# if __name__ == '__main__':
+#     readXML()

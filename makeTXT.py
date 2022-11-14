@@ -29,6 +29,7 @@ for i in list:
             ftest.write(name)
         else:
             fval.write(name)
+
     else:
         ftrain.write(name)
  
