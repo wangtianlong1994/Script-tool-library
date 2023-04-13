@@ -83,15 +83,15 @@
 # if __name__ == '__main__':
 #     readXML()
 
-#
+# #
 #修改xml节点名称
 import os
 from xml.dom.minidom import parse
 
 def readXML():
-    for i in os.listdir("5-4_xml"):
-        domTree = parse("5-4_xml/"+i)
-        s = "5-4_xml/"+i
+    for i in os.listdir("suiguo_xml"):
+        domTree = parse("suiguo_xml/"+i)
+        s = "suiguo_xml/"+i
         # 文档根元素
         rootNode = domTree.documentElement
         # print(rootNode.nodeName)
@@ -99,11 +99,13 @@ def readXML():
 
         for i in range(len(customers)):
             # print(str(customers[i].firstChild.data))
-            if "yewei" not in str(customers[i].firstChild.data) and "yellow" not in str(customers[i].firstChild.data):
+            if str(customers[i].firstChild.data) not in "suiguo":
+            # if "HuangPi" in str(customers[i].firstChild.data):
                 # print(s)
                 # print(str(customers[i].firstChild.data))
                 print("改变前："+customers[i].firstChild.data)
-                customers[i].firstChild.data = "ng"
+                customers[i].firstChild.data = "suiguo"
+                # customers[i].firstChild.data = "HaoZao"
                 print("改变后："+customers[i].firstChild.data)
 
         with open(s, 'w') as fh:
@@ -128,5 +130,34 @@ if __name__ == '__main__':
 #             pass
 #         else:
 #             os.remove(s)
+# if __name__ == '__main__':
+#     readXML()
+
+#
+#
+# #删除特定label xml文件
+#
+# import os
+# from xml.dom.minidom import parse
+#
+# def readXML():
+#     for i in os.listdir("./11"):
+#         domTree = parse("./11/"+i)
+#         s = "./11/"+i
+#         # 文档根元素
+#         rootNode = domTree.documentElement
+#         # print(rootNode.nodeName)
+#         customers = rootNode.getElementsByTagName("name")
+#         file_not_del = True
+#
+#         for i in range(len(customers)):
+#             print(customers[i].firstChild.data)
+#             if "xiangchang" not in str(customers[i].firstChild.data):
+#                 file_not_del = False
+#                 break
+#         if file_not_del:
+#             os.remove(s)
+#             # print(s)
+#
 # if __name__ == '__main__':
 #     readXML()

@@ -106,7 +106,7 @@
 import xml.etree.ElementTree as ET
 import os
 
-xmlfilepath = 'new_xml/'
+xmlfilepath = './Annotations'
 # xmlfilepath = 'data/test'
 # xmlfilepath = 'data/1'
 
@@ -120,9 +120,13 @@ gantiao = 0
 lanzao = 0
 shuzao = 0
 niaozhuo = 0
+fengban = 0
+popi = 0
 
 for i in total_xml:
-    i = 'new_xml/' + i
+    i = './Annotations/' + i
+    if i.split(".")[-1] == "ini":
+        continue
     tree = ET.parse(i)
     root = tree.getroot()
     for names in root.findall("object"):
@@ -143,9 +147,13 @@ for i in total_xml:
             lanzao += 1
         elif name == "7" or name == "ShuZao":
             shuzao += 1
+        elif name == "8" or name == "FengBan":
+            fengban += 1
+        elif name == "9" or name == "PoPi":
+            popi += 1
+zs = haozao + gantiao + heiban + liekou + bianxing + niaozhuo + lanzao + shuzao + fengban + popi
+print("统计数据集各类数量如下：好枣-%s-,干条-%s-,黑斑-%s-,裂口-%s-,变形-%s-,鸟琢-%s-,烂枣-%s-,竖枣-%s-,风斑-%s-,破皮-%s-,总数-%s-" % (haozao, gantiao, heiban, liekou, bianxing, niaozhuo, lanzao, shuzao,fengban, popi, zs))
 
-zs = haozao + gantiao + heiban + liekou + bianxing + niaozhuo + lanzao + shuzao
-print("统计数据集各类数量如下：好枣-%s-,干条-%s-,黑斑-%s-,裂口-%s-,变形-%s-,鸟琢-%s-,烂枣-%s-,竖枣-%s-,总数-%s-" % (haozao, gantiao, heiban, liekou, bianxing, niaozhuo, lanzao, shuzao, zs))
 
 
 
