@@ -3,7 +3,7 @@ import os
 from xml.dom.minidom import parse
 
 def readXML():
-    names = "train_xml"
+    names = "2450_6_nei_mei_3_xml"
     for i in os.listdir(names):
         domTree = parse(names+"/"+i)
         # 文档根元素

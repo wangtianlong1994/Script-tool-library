@@ -1,14 +1,14 @@
 # 修改图片名称
 import os
 lists = []
-paths = "./23_1-4_1/"
-image_list = os.listdir("./23_1-4_1")
-a = 587
+paths = "./chaochuang_6_4/"
+image_list = os.listdir("./chaochuang_6_4")
+a = 1
 for i in range(len(image_list)):
 
     # os.rename(paths+image_list[i],(paths+"6x3_beijing_"+ str(a) + ".png"))
 
-    os.rename(paths+image_list[i],(paths+"23_1-4_"+ str(a) + ".jpg"))
+    os.rename(paths+image_list[i],(paths+"6_4_"+ str(a) + ".jpg"))
     a += 1
     # os.rename(image_path,iamge_name)
 

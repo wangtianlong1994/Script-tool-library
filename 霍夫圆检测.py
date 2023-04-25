@@ -59,8 +59,8 @@ def detect_circle(image):
 # cv.waitKey()
 
 # 读取图片信息
-img_files = os.listdir("./4")
-img_path = "./4/"
+img_files = os.listdir("./6")
+img_path = "./6/"
 for i in img_files:
     img = cv.imread(f"{img_path+i}")
     # 检测圆并根据圆心裁剪图片
@@ -71,10 +71,10 @@ for i in img_files:
     # img = cv.convertScaleAbs(img, imgs, 2.0, 0)
 
     # 向左90度
-    img = np.rot90(img)
-    img = np.rot90(img)
-    img = np.rot90(img)
-    cv.imwrite(f"./22/{i.split('.')[0]}.jpg", img)
+    # img = np.rot90(img)
+    # img = np.rot90(img)
+    # img = np.rot90(img)
+    cv.imwrite(f"./chaochuang_6_4/{i.split('.')[0]}.jpg", img)
     # cv.imwrite(f"./NG/{i}", img)
 
 

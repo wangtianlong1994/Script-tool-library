@@ -27,8 +27,8 @@
 import os
 import shutil
 
-xml_list = os.listdir("1")
-image_list = os.listdir("1xml")
+xml_list = os.listdir("2450_6_nei_mei_3")
+image_list = os.listdir("2450_6_nei_mei_3_xml")
 lists = []
 for image in image_list:
     i = image.split('.')
@@ -40,11 +40,12 @@ for xml in xml_list:
     x = xml.split('.')
     x = x[0]
     if x not in lists:
-        file.write("./1/" + x + ".bmp" + "\n")
+        file.write("./2450_6_nei_mei_3/" + x + ".png" + "\n")
 file.close()
 
 for i in open("2.txt", "r"):
+
     a = i.strip()
     # os.remove(a)
     print(a.split("/")[2])
-    shutil.move(a, "./11/"+a.split("/")[2])
+    shutil.move(a, "./1/"+a.split("/")[2])
